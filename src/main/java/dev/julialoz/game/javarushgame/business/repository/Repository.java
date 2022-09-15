@@ -2,31 +2,34 @@ package dev.julialoz.game.javarushgame.business.repository;
 
 import java.util.*;
 
-public class Repository <T> {
-    Map<Integer,T> repository = new HashMap<Integer, T>();
-     Integer currentId = 1;
+public class Repository<T> {
+    private final Map<Long, T> data = new HashMap<>();
+    private Long currentId = 1L;
 
-     List<T> findAll(){
-        return new ArrayList<T>(repository.values());
+    public List<T> findAll() {
+        return new ArrayList<>(data.values());
     }
 
-     <S extends T> S save(S entity){
-        repository.put(currentId++,entity);
+    public <S extends T> S save(S entity) {
+        data.put(currentId++, entity);
         return entity;
     }
 
-     Optional<T> findById(int id){
-        return Optional.ofNullable(repository.get(id));
+    public <S extends T> S save(Long id, S entity) {
+        data.put(id, entity);
+        return entity;
     }
 
-     boolean existsById (int id){
-        return repository.containsKey(id);
-     }
+    public Optional<T> findById(Long id) {
+        return Optional.ofNullable(data.get(id));
+    }
 
-     void deleteById(int id){
-         repository.remove(id);
-     }
+    public boolean existsById(Long id) {
+        return data.containsKey(id);
+    }
 
-
+    public void deleteById(Long id) {
+        data.remove(id);
+    }
 
 }

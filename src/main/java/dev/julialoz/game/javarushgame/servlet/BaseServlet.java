@@ -1,5 +1,7 @@
 package dev.julialoz.game.javarushgame.servlet;
 
+
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,7 +17,7 @@ public class BaseServlet extends HttpServlet {
         try {
             resp.sendRedirect("location");
         } catch (IOException exception) {
-            log.error("Error redirecting to room.");
+            log.error("Error redirecting to location.");
         }
     }
 }

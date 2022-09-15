@@ -28,6 +28,9 @@ public class AppContextListener implements ServletContextListener {
         loadDataToRepo(ctx, new NpcRepository(), "npcRepository", initializer.getNpcs());
         loadDataToRepo(ctx, new EnemyRepository(), "enemyRepository", initializer.getEnemys());
         loadDataToRepo(ctx, new LocationRepository(), "locationRepository", initializer.getLocations());
+        loadDataToRepo(ctx, new AnswerRepository(), "answerRepository", initializer.getAnswers());
+        loadDataToRepo(ctx, new MessageRepository(), "messageRepository", initializer.getMessages());
+        loadDataToRepo(ctx, new QuestRepository(), "questRepository", initializer.getQuests());
 
     }
 

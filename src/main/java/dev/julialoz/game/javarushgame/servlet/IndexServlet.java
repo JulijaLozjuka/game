@@ -2,12 +2,13 @@ package dev.julialoz.game.javarushgame.servlet;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.*;
-import javax.servlet.http.*;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "helloServlet", value = "")
-public class IndexServlet extends HttpServlet {
+@WebServlet(name = "indexServlet", value = "")
+public class IndexServlet extends BaseServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
