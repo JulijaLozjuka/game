@@ -47,16 +47,18 @@ public class DialogueServlet extends BaseServlet {
     private MessageDto mapToMessageDto(Message message, Answer answer1, Answer answer2) {
         return MessageDto.builder()
                 .text(message.getText())
-                .answer1(AnswerDto.builder()
-                        .text(answer1.getText())
-                        .nextMessage(answer1.getNextMessage())
-                        .questId(answer1.getQuestId())
-                        .build())
-                .answer2(AnswerDto.builder()
-                        .text(answer2.getText())
-                        .nextMessage(answer2.getNextMessage())
-                        .questId(answer2.getQuestId())
-                        .build())
+                .answer1(getAnswerDto(answer1))
+                .answer2(getAnswerDto(answer2))
+                .build();
+    }
+
+    private static AnswerDto getAnswerDto(Answer answer) {
+        return answer == null
+                ? null
+                : AnswerDto.builder()
+                .text(answer.getText())
+                .nextMessage(answer.getNextMessage())
+                .questId(answer.getQuestId())
                 .build();
     }
 }

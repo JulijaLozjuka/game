@@ -65,6 +65,9 @@ public class LocationServlet extends BaseServlet {
     }
 
     private List<Npc> getNpc(Location location) {
+        if(location.getNpcs() == null){
+            return null;
+        }
         List<Npc> npcs = new ArrayList<>();
         for (Long npcId : location.getNpcs()) {
             npcs.add(npcRepository.findById(npcId).get());
