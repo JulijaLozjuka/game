@@ -3,9 +3,10 @@ package dev.julialoz.game.javarushgame.servlet;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dev.julialoz.game.javarushgame.business.repository.AnswerRepository;
 import dev.julialoz.game.javarushgame.business.repository.MessageRepository;
-import dev.julialoz.game.javarushgame.model.npc.Answer;
-import dev.julialoz.game.javarushgame.model.npc.Message;
-import dev.julialoz.game.javarushgame.servlet.dto.AnswerDto;
+import dev.julialoz.game.javarushgame.business.repository.NpcRepository;
+import dev.julialoz.game.javarushgame.business.repository.QuestRepository;
+import dev.julialoz.game.javarushgame.model.User;
+import dev.julialoz.game.javarushgame.service.DialogueService;
 import dev.julialoz.game.javarushgame.servlet.dto.MessageDto;
 
 import javax.servlet.ServletConfig;
@@ -19,46 +20,28 @@ import java.io.IOException;
 @WebServlet(name = "dialogueServlet", value = "/dialogue")
 public class DialogueServlet extends BaseServlet {
 
-    private MessageRepository messageRepository = null;
-    private AnswerRepository answerRepository = null;
+    private DialogueService dialogueService;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
         ServletContext servletContext = config.getServletContext();
-        messageRepository = (MessageRepository) servletContext.getAttribute("messageRepository");
-        answerRepository = (AnswerRepository) servletContext.getAttribute("answerRepository");
+
+        dialogueService = new DialogueService(
+                (QuestRepository) servletContext.getAttribute("questRepository"),
+                (MessageRepository) servletContext.getAttribute("messageRepository"),
+                (AnswerRepository) servletContext.getAttribute("answerRepository"),
+                (NpcRepository) servletContext.getAttribute("npcRepository")
+        );
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         String messageId = req.getParameter("messageId").trim();
-        Message message = messageRepository.findById(Long.parseLong(messageId)).get();
-        Answer answer1 = message.getAnswer1() != null ? answerRepository.findById(message.getAnswer1()).get() : null;
-        Answer answer2 = message.getAnswer2() != null ? answerRepository.findById(message.getAnswer2()).get() : null;
-        MessageDto messageDto = mapToMessageDto(message, answer1, answer2);
-        ObjectMapper mapper = new ObjectMapper();
-        String messageInJson = mapper.writeValueAsString(messageDto);
-
-        resp.setContentType("application/json");
-        resp.getWriter().write(messageInJson);
+        String npcId = req.getParameter("npcId").trim();
+        User user = (User) req.getSession().getAttribute("user");
+        MessageDto messageDto = dialogueService.getMessageDto(messageId, user, npcId);
+        writeToResp(resp, messageDto);
     }
 
-    private MessageDto mapToMessageDto(Message message, Answer answer1, Answer answer2) {
-        return MessageDto.builder()
-                .text(message.getText())
-                .answer1(getAnswerDto(answer1))
-                .answer2(getAnswerDto(answer2))
-                .build();
-    }
-
-    private static AnswerDto getAnswerDto(Answer answer) {
-        return answer == null
-                ? null
-                : AnswerDto.builder()
-                .text(answer.getText())
-                .nextMessage(answer.getNextMessage())
-                .questId(answer.getQuestId())
-                .build();
-    }
 }

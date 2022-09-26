@@ -12,5 +12,5 @@ public abstract class Quest {
     Long id;
     Long questHolderId;
     String description;
-    public abstract boolean checkCompletion(User user);
+    public abstract boolean isQuestDone(User user);
 }
