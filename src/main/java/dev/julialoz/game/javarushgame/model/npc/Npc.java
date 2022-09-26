@@ -11,5 +11,6 @@ public class Npc {
     private Long questId;
     private Long dialogStartingMessage;
     private String questCompleteText;
+    private String questDoneText;
     private String questInProgressText;
 }

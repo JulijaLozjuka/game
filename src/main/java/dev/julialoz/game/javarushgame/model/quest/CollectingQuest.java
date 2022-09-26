@@ -11,7 +11,7 @@ public class CollectingQuest extends Quest {
     private Long requiredItem;
 
     @Override
-    public boolean checkCompletion(User user) {
+    public boolean isQuestDone(User user) {
         return user.getInventory().contains(requiredItem);
     }
 }

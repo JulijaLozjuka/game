@@ -4,25 +4,17 @@
 <head>
     <title>Starting page</title>
     <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="css/custom.css">
 </head>
-<body class="text-center">
+<body class="text-center main-image">
 <div class="container-fluid">
     <div class="row">
         <div class="col-7 mx-auto">
-            <div>Drag0n kvass</div>
-        </div>
-    </div>
-    <div>
-        <div class="col-4 mx-auto">
+            <h1 class="white-text">Bug size adventures</h1>
             <form action="start" method="post">
-                <input placeholder="Enter name:" type="text" class="form-control"
-                       id="playerName" name="playerName">
-                <div class="row">
-                    <div class="col-9 mx-auto">
-                        <button type="submit" role="button">
-                            <span>Enter</span>
-                        </button>
-                    </div>
+                <div class="col-auto">
+                    <input type="text" class="form-control" id="inputLogin" placeholder="Login" name="playerName">
+                    <button type="submit" class="button-68">PLay</button>
                 </div>
             </form>
         </div>

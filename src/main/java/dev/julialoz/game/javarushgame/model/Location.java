@@ -20,6 +20,8 @@ public class Location {
 
     private Long key; // item id
 
+    private String imageName;
+
     @Builder.Default
     private List<Long> items = new ArrayList<>();
 

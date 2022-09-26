@@ -2,6 +2,7 @@ package dev.julialoz.game.javarushgame;
 
 
 import dev.julialoz.game.javarushgame.business.repository.*;
+import dev.julialoz.game.javarushgame.domain.GameBuilder;
 import dev.julialoz.game.javarushgame.model.User;
 
 import javax.servlet.ServletContext;

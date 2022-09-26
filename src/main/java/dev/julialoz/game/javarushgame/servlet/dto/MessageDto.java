@@ -1,6 +1,5 @@
 package dev.julialoz.game.javarushgame.servlet.dto;
 
-import dev.julialoz.game.javarushgame.model.npc.Answer;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

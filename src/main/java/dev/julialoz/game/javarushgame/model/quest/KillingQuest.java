@@ -8,7 +8,7 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 public class KillingQuest extends Quest {
     @Override
-    public boolean checkCompletion(User user) {
+    public boolean isQuestDone(User user) {
         return false;
     }
 }
